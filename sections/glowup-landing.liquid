@@ -1,0 +1,83 @@
+{% schema %}
+{
+  "name": "GlowUp Landing PRO",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Producto",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Producto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GlowUp Landing PRO"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="glowup-container">
+
+  <div class="glowup-hero">
+    <h1>Piel perfecta en días ✨</h1>
+    <p>Skincare viral en Colombia</p>
+    <a href="#productos" class="btn">Comprar ahora</a>
+  </div>
+
+  <div id="productos" class="grid">
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      {% if product %}
+      <div class="card">
+        <img src="{{ product.featured_image | image_url: width: 400 }}">
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.price | money }}</p>
+
+        <form method="post" action="/cart/add">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          <button type="submit">Comprar</button>
+        </form>
+
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+</div>
+
+<style>
+body { font-family: Arial; }
+
+.glowup-hero {
+  text-align:center;
+  padding:80px;
+  background:#ffe6f0;
+}
+
+.btn {
+  background:#ff2e75;
+  color:white;
+  padding:15px 25px;
+  border-radius:30px;
+  text-decoration:none;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+.card {
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+</style>
