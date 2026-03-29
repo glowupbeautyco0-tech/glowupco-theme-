@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>{{ GlowUp Beauty Co }}</title>
+  {{ 'glowup.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
+  
 </head>
 
 <body>
